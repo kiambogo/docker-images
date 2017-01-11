@@ -5,10 +5,9 @@ FROM ubuntu
 MAINTAINER Christopher Poenaru <kiambogo@gmail.com>
 
 # URL of maps data dumped from postgres (sql format)
-ENV MAPS_URL=https://raw.githubusercontent.com/trifectalabs/roadquality/docker/maps.sql
+ENV MAPS_URL=https://raw.githubusercontent.com/kiambogo/docker-images/master/postgres_tilestache/dependencies/maps.sql
 # URL of tilestache config to use
-ENV TILESTACHE_CONFIG_URL=https://raw.githubusercontent.com/trifectalabs/roadquality/docker/tilestache.cfg
-
+ENV TILESTACHE_CONFIG_URL=https://raw.githubusercontent.com/kiambogo/docker-images/master/postgres_tilestache/dependencies/tilestache.cfg
 
 RUN apt-get update && apt-get install -y vim wget curl
 
@@ -45,12 +44,12 @@ RUN chmod +x /start.sh
 USER postgres
 
 # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
-# then create a database `maps` owned by the ``roadquality`` role.
+# then create a database `maps` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
 RUN    /etc/init.d/postgresql start &&\
-    psql --command "CREATE USER roadquality WITH SUPERUSER PASSWORD 'trifectalabs';" &&\
-    createdb -O roadquality maps &&\
+    psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
+    createdb -O docker maps &&\
     psql --command "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;" maps &&\
     psql -d maps -f maps.sql
 
@@ -66,7 +65,5 @@ EXPOSE 8080
 
 # Add VOLUMEs to allow backup of config, logs and databases
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-
-#RUN /usr/lib/postgresql/9.5/bin/postgres -D /var/lib/postgresql/9.5/main -c config_file=/etc/postgresql/9.5/main/postgresql.conf &
 
 CMD ["/start.sh"]
