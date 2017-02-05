@@ -4,6 +4,7 @@ FROM ubuntu
 MAINTAINER Christopher Poenaru <kiambogo@gmail.com>
 
 ENV MAPS_URL=https://raw.githubusercontent.com/kiambogo/docker-images/master/postgres_pgrouting/dependencies/Waterloo.osm
+ENV SQL_URL=https://raw.githubusercontent.com/kiambogo/docker-images/master/postgres_pgrouting/dependencies/pgrouting.sql
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y vim wget curl
 RUN apt-get install -y build-essential libboost-dev expat libexpat1-dev libboost-program-options-dev
@@ -35,6 +36,7 @@ RUN chmod +x /start.sh
 
 # Download maps data
 RUN curl -o /maps.sql ${MAPS_URL}
+RUN curl -o /pgrouting.sql ${SQL_URL}
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.5`` package when it was ``apt-get installed``
 USER postgres
@@ -48,7 +50,8 @@ RUN /etc/init.d/postgresql start \
     && createdb -O docker maps \
     && psql --command "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;" maps \
     && psql --command "CREATE EXTENSION pgrouting;" maps \
-    && osm2pgrouting -f /maps.sql --dbname maps --username docker --password docker --clean
+    && osm2pgrouting -f /maps.sql --dbname maps --username docker --password docker --clean \
+    && psql -f /pgrouting.sql --dbname maps
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
