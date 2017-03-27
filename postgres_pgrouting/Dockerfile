@@ -1,4 +1,4 @@
-# Dockerfile for creating container with Postgres 9.5, postgis 2.2, osm2pgrouting2.2.0, and pgRouting 2.3.2
+# Dockerfile for creating container with Postgres 9.6, postgis 2.3, osm2pgrouting2.2.0, and pgRouting 2.3.2
 
 FROM ubuntu
 MAINTAINER Christopher Poenaru <kiambogo@gmail.com>
@@ -19,9 +19,9 @@ RUN wget http://www.cmake.org/files/v3.2/cmake-3.2.2.tar.gz \
   && tar xf cmake-3.2.2.tar.gz && cd cmake-3.2.2 && ./configure && make && make install
 
 # Install Postgis 2.2
-RUN apt-get install -y postgis postgresql-9.5-postgis-2.2
+RUN apt-get install -y postgis postgresql-9.6-postgis-2.3
 # Install pgRouting 2.3.3
-RUN apt-get install -y postgresql-9.5-pgrouting
+RUN apt-get install -y postgresql-9.6-pgrouting
 # Install osm2pgrouting
 RUN wget https://github.com/pgRouting/osm2pgrouting/archive/v2.2.0.tar.gz  \
   && tar xzf v2.2.0.tar.gz \
