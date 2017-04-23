@@ -78,6 +78,8 @@ come in as well.
   line-color: @standard_case;
   [bridge=1] { line-color: @standard_case * 0.8; }
   [type='residential'] { line-color: [rating_colour]; }
+  [type='tertiary'] { line-color: [rating_colour]; }
+  [type='unclassified'] { line-color: [rating_colour]; }
   [type='motorway'],
   [type='motorway_link'] {
     line-color: [rating_colour];
@@ -197,7 +199,7 @@ come in as well.
   }
   [type='secondary'],
   [type='secondary_link'] {
-    line-color: #000000;
+    line-color: @secondary_fill;
     [tunnel=1] { line-color: lighten(@secondary_fill, 10%); }
   }
   [stylegroup='railway'] {
