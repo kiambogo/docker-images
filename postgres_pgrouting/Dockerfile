@@ -3,9 +3,6 @@
 FROM ubuntu:16.04
 MAINTAINER Christopher Poenaru <kiambogo@gmail.com>
 
-ENV MAPS_URL=https://raw.githubusercontent.com/kiambogo/docker-images/master/postgres_pgrouting/dependencies/Waterloo.osm
-ENV SQL_URL=https://raw.githubusercontent.com/kiambogo/docker-images/master/postgres_pgrouting/dependencies/pgrouting.sql
-
 RUN apt-get update && apt-get upgrade -y && apt-get install -y
 RUN apt-get install -y vim wget curl build-essential libboost-dev expat libexpat1-dev \
                        libboost-program-options-dev software-properties-common \
@@ -15,7 +12,6 @@ RUN wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | apt
 RUN apt-get update
 
 ADD dependencies/Waterloo.osm /map_data.osm
-ADD dependencies/pgrouting.sql /pgrouting_functions.sql
 
 # Install ``python-software-properties``, ``software-properties-common`` and PostgreSQL 9.6
 RUN apt-get install -y python-software-properties software-properties-common postgresql-9.6 postgresql-client-9.6 postgresql-contrib-9.6 postgresql-server-dev-9.6
@@ -59,7 +55,6 @@ RUN /etc/init.d/postgresql start \
     && psql --command "CREATE EXTENSION postgis;" maps \
     && psql --command "CREATE EXTENSION pgrouting;" maps \
     && osm2pgrouting -f /map_data.osm --dbname maps --username docker --password docker --clean \
-    && psql -f /pgrouting_functions.sql --dbname maps
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
