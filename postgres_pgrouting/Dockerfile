@@ -3,9 +3,6 @@
 FROM ubuntu:16.04
 MAINTAINER Christopher Poenaru <kiambogo@gmail.com>
 
-ADD dependencies/Waterloo.osm /map_data.osm
-ADD dependencies/pgrouting.sql /pgrouting_functions.sql
-
 RUN apt-get update && apt-get upgrade -y && apt-get install -y
 RUN apt-get install -y vim wget curl build-essential libboost-dev expat libexpat1-dev \
                        libboost-program-options-dev software-properties-common \
@@ -13,6 +10,8 @@ RUN apt-get install -y vim wget curl build-essential libboost-dev expat libexpat
 RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt xenial-pgdg main" >> /etc/apt/sources.list'
 RUN wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | apt-key add -
 RUN apt-get update
+
+ADD dependencies/Waterloo.osm /map_data.osm
 
 # Install ``python-software-properties``, ``software-properties-common`` and PostgreSQL 9.6
 RUN apt-get install -y python-software-properties software-properties-common postgresql-9.6 postgresql-client-9.6 postgresql-contrib-9.6 postgresql-server-dev-9.6
@@ -26,7 +25,7 @@ RUN wget http://www.cmake.org/files/v3.2/cmake-3.2.2.tar.gz \
 # Installs Postgres 9.6 + Postgis 2.3
 RUN apt-get install -y postgresql-9.6 postgresql-9.6-postgis-2.3 postgresql-contrib-9.6 postgis
 # Install pgRouting 2.3.3
-RUN apt-get install -y postgresql-9.5-pgrouting
+RUN apt-get install -y postgresql-9.6-pgrouting
 # Install osm2pgrouting
 RUN wget https://github.com/pgRouting/osm2pgrouting/archive/v2.2.0.tar.gz  \
   && tar xzf v2.2.0.tar.gz \
@@ -51,8 +50,7 @@ RUN /etc/init.d/postgresql start \
     && createdb -O docker maps \
     && psql --command "CREATE EXTENSION postgis;" maps \
     && psql --command "CREATE EXTENSION pgrouting;" maps \
-    && osm2pgrouting -f /map_data.osm --dbname maps --username docker --password docker --clean \
-    && psql -f /pgrouting_functions.sql --dbname maps
+    && osm2pgrouting -f /map_data.osm --dbname maps --username docker --password docker --clean
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
