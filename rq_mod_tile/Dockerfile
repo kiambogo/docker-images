@@ -37,7 +37,7 @@ RUN cd /usr/local/src/osm-bright/shp && wget http://data.openstreetmapdata.com/l
 RUN cd /usr/local/src/osm-bright/shp && mkdir ne_10m_populated_places && cd ne* &&  wget http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places_simple.zip && unzip '*.zip'
 RUN cd /usr/local/src/osm-bright/shp && unzip '*.zip'
 ADD configure.py /usr/local/src/osm-bright/
-RUN cd osm-bright && chmod +x configure.py && ./configure.py && ./make.py
+RUN cd osm-bright && python configure.py && ./make.py
 ADD palette.mss /usr/local/src/osm-bright/osm-bright/OSMBright/
 ADD roads.mss /usr/local/src/osm-bright/osm-bright/OSMBright/
 ADD project.mml /usr/local/src/osm-bright/osm-bright/OSMBright/
