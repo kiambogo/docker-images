@@ -1,24 +1,12 @@
-/* ****************************************************************** */
-/* OSM BRIGHT for Imposm                                              */
-/* ****************************************************************** */
-
-/* For basic style customization you can simply edit the colors and
- * fonts defined in this file. For more detailed / advanced
- * adjustments explore the other files.
- *
- * GENERAL NOTES
- *
- * There is a slight performance cost in rendering line-caps.  An
- * effort has been made to restrict line-cap definitions to styles
- * where the results will be visible (lines at least 2 pixels thick).
- */
-
 /* ================================================================== */
 /* FONTS
 /* ================================================================== */
 
-/* directory to load fonts from in addition to the system directories */
-Map { font-directory: url(./fonts); }
+Map {
+  font-directory: url(./fonts);
+  background-color: @water;
+  buffer-size: 256;
+}
 
 /* set up font sets for various weights and styles */
 @sans_lt:       "Open Sans Regular", "DejaVu Sans Book", "Arundina Sans Regular", "Padauk Regular", "Khmer OS Metal Chrieng Regular",
@@ -61,14 +49,15 @@ Map { font-directory: url(./fonts); }
 /* LANDUSE & LANDCOVER COLORS
 /* ================================================================== */
 
-@land:              #FCFBE7;
-@water:             #C4DFF6;
-@grass:             #E6F2C1;
+@land:              lighten(#e3e3dc, 8%);
+@water:             #CDD2D4;
+@water_outline:     #9DA4A5;
+@grass:             lighten(#d4dad6,8%);
 @beach:             #FFEEC7;
-@park:              #DAF2C1;
+@park:              lighten(#d4dad6,10%);
 @cemetery:          #D6DED2;
-@wooded:            #C3D9AD;
-@agriculture:       #F2E8B6;
+@wooded:            lighten(#d4dad6,6%);
+@agriculture:       lighten(#d4dad6,8%);
 
 @building:          #E4E0E0;
 @hospital:          rgb(229,198,195);
@@ -93,24 +82,24 @@ Map { font-directory: url(./fonts); }
  *         inner fill (inline).
  */
 
-@motorway_line:     #E65C5C;
+@motorway_line:     white;
 @motorway_fill:     lighten(@motorway_line,10%);
 @motorway_case:     @motorway_line * 0.9;
 
-@trunk_line:        #E68A5C;
+@trunk_line:        white;
 @trunk_fill:        lighten(@trunk_line,10%);
 @trunk_case:        @trunk_line * 0.9;
 
-@primary_line:      #FFC859;
+@primary_line:      white;
 @primary_fill:      lighten(@primary_line,10%);
 @primary_case:      @primary_line * 0.9;
 
-@secondary_line:    #FFE873;
+@secondary_line:    white;
 @secondary_fill:    lighten(@secondary_line,10%);
 @secondary_case:    @secondary_line * 0.9;
 
 @standard_line:     @land * 0.85;
-@standard_fill:     #fff;
+@standard_fill:     [rating_colour];
 @standard_case:     @land * 0.9;
 
 @pedestrian_line:   @standard_line;

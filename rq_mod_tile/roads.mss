@@ -77,27 +77,24 @@ come in as well.
   line-join: round;
   line-color: @standard_case;
   [bridge=1] { line-color: @standard_case * 0.8; }
-  [type='residential'] { line-color: [rating_colour]; }
-  [type='tertiary'] { line-color: [rating_colour]; }
-  [type='unclassified'] { line-color: [rating_colour]; }
   [type='motorway'],
   [type='motorway_link'] {
-    line-color: [rating_colour];
+    line-color: @motorway_case;
     [bridge=1] { line-color: @motorway_case * 0.8; }
   }
   [type='trunk'],
   [type='trunk_link'] {
-    line-color: [rating_colour];
+    line-color: @trunk_case;
     [bridge=1] { line-color: @trunk_case * 0.8; }
   }
   [type='primary'],
   [type='primary_link'] {
-    line-color: [rating_colour];
+    line-color: @primary_case;
     [bridge=1] { line-color: @primary_case * 0.8; }
   }
   [type='secondary'],
   [type='secondary_link'] {
-    line-color: [rating_colour];
+    line-color: @secondary_case;
     [bridge=1] { line-color: @secondary_case * 0.8; }
   }
   [stylegroup='railway'] {

@@ -40,6 +40,7 @@ ADD configure.py /usr/local/src/osm-bright/
 RUN cd osm-bright && python configure.py && ./make.py
 ADD palette.mss /usr/local/src/osm-bright/osm-bright/OSMBright/
 ADD roads.mss /usr/local/src/osm-bright/osm-bright/OSMBright/
+ADD base.mss /usr/local/src/osm-bright/osm-bright/OSMBright/
 ADD project.mml /usr/local/src/osm-bright/osm-bright/OSMBright/
 RUN cd osm-bright/osm-bright/OSMBright && carto project.mml > mapnik.xml
 
