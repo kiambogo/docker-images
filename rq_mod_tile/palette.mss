@@ -49,7 +49,7 @@ Map {
 /* LANDUSE & LANDCOVER COLORS
 /* ================================================================== */
 
-@land:              lighten(#e3e3dc, 8%);
+@land:              lighten(#e3e3dc, 1%);
 @water:             #CDD2D4;
 @water_outline:     #9DA4A5;
 @grass:             lighten(#d4dad6,8%);
@@ -62,12 +62,11 @@ Map {
 @building:          #E4E0E0;
 @hospital:          rgb(229,198,195);
 @school:            #FFF5CC;
-@sports:            #B8E6B8;
+@sports:            #d4dad6;
 
 @residential:       @land * 0.98;
 @commercial:        @land * 0.97;
 @industrial:        @land * 0.96;
-@parking:           #EEE;
 
 /* ================================================================== */
 /* ROAD COLORS
@@ -95,7 +94,7 @@ Map {
 @primary_case:      @primary_line * 0.9;
 
 @secondary_line:    white;
-@secondary_fill:    lighten(@secondary_line,10%);
+@secondary_fill:    [rating_colour];
 @secondary_case:    @secondary_line * 0.9;
 
 @standard_line:     @land * 0.85;

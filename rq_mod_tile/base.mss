@@ -20,14 +20,9 @@
 #landuse_gen1[zoom>9][zoom<=12],
 #landuse[zoom>12] {
   [type='cemetery']      { polygon-fill: @cemetery; }
-  [type='commercial']    { polygon-fill: @industrial; }
-  [type='industrial']    { polygon-fill: @industrial; }
-  [type='hospital']      { polygon-fill: @hospital; }
-  [type='park']          { polygon-fill: @park; }
+  [type='golf_course']   { polygon-fill: @sports; }
   [type='common']        { polygon-fill: @park; }
-  [type='parking']       { polygon-fill: @parking; }
   [type='pedestrian']    { polygon-fill: @pedestrian_fill; }
-  [type='residential']   { polygon-fill: @residential; }
 }
 
 #landuse_overlays[type='nature_reserve'][zoom>6] {
@@ -50,17 +45,6 @@
   }
 
 /* ---- BUILDINGS ---- */
-#buildings[zoom>=12][zoom<=16] {
-  polygon-fill:@building;
-  [zoom>=14] {
-    line-color:darken(@building,5%);
-    line-width:0.2;
-  }
-  [zoom>=16] {
-    line-color:darken(@building,10%);
-    line-width:0.4;
-  }
-}
 // At the highest zoom levels, render buildings in fancy pseudo-3D.
 // Ordering polygons by their Y-position is necessary for this effect
 // so we use a separate layer that does this for us.
